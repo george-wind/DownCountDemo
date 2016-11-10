@@ -1,11 +1,17 @@
 package ni.george.downcountdemo;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,12 +60,26 @@ public class MainActivity extends Activity {
                             btStart.setBackgroundColor(getResources().getColor(R.color.button_green));
                             btStart.setClickable(true);
                             tvMinute.setText("10");
+                            startVoice();
                         }
                         break;
                 }
                 return false;
             }
         });
+    }
+
+    /**
+     * 定时结束播放提示音
+     */
+    private void startVoice() {
+//        AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+//        int max = mAudioManager.getStreamMaxVolume( AudioManager.STREAM_ALARM );
+//        int current = mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+//        System.out.println("maxVolume= "+max+",currentVolume= "+current);
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        r.play();
     }
 
     private void initViews() {
